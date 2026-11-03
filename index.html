@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mes astrophotos</title>
+<style>
+:root { --bg:#0b0f1a; --panel:#121829; --line:#263049; --ink:#e6e9f2; --muted:#8b94ab; --accent:#7c5cff; --accent2:#3fa6ff; }
+* { box-sizing: border-box; }
+body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.5 "Segoe UI", system-ui, -apple-system, sans-serif; }
+header { padding:28px 24px 8px; max-width:1300px; margin:0 auto; }
+header h1 { margin:0; font-size:26px; letter-spacing:.3px; }
+header p { margin:4px 0 0; color:var(--muted); font-size:13px; }
+main { max-width:1300px; margin:0 auto; padding:16px 24px 60px; }
+a { color:var(--accent2); }
+.grille { display:grid; grid-template-columns:repeat(auto-fill, minmax(260px, 1fr)); gap:18px; }
+.carte { background:var(--panel); border:1px solid var(--line); border-radius:12px; overflow:hidden; cursor:pointer;
+  text-decoration:none; color:inherit; transition:transform .12s, border-color .12s; display:block; }
+.carte:hover { transform:translateY(-2px); border-color:var(--accent); }
+.carte .img { aspect-ratio:4/3; background:#000; overflow:hidden; }
+.carte img { width:100%; height:100%; object-fit:cover; display:block; }
+.carte .leg { padding:10px 12px 12px; }
+.carte b { font-size:16px; display:block; }
+.muted { color:var(--muted); font-size:13px; }
+.retour { display:inline-block; margin-bottom:12px; }
+h2 { margin:6px 0 2px; font-size:24px; }
+.travail { margin:20px 0 34px; padding-bottom:24px; border-bottom:1px solid var(--line); }
+.travail h3 { margin:0 0 2px; font-size:17px; }
+.images { display:flex; flex-wrap:wrap; gap:14px; margin-top:12px; }
+.images figure { margin:0; cursor:zoom-in; }
+.images img { height:240px; max-width:100%; border-radius:10px; border:1px solid var(--line); display:block; }
+.images figcaption { text-align:center; color:var(--muted); font-size:13px; margin-top:4px; }
+.fiche { display:inline-block; margin-top:12px; padding:7px 14px; border-radius:8px; background:var(--accent); color:#fff; text-decoration:none; }
+.lb { position:fixed; inset:0; background:rgba(3,5,10,.94); display:flex; flex-direction:column; z-index:10; }
+.lb .bar { display:flex; align-items:center; gap:10px; padding:10px 14px; color:var(--muted); font-size:13px; }
+.lb .bar span { flex:1; }
+.lb button { font:inherit; color:var(--ink); background:transparent; border:1px solid var(--line); border-radius:8px; padding:5px 12px; cursor:pointer; }
+.lb .corps { flex:1; display:flex; align-items:center; justify-content:center; overflow:hidden; padding:8px; }
+.lb img { max-width:100%; max-height:100%; object-fit:contain; }
+footer { text-align:center; color:var(--muted); font-size:12px; padding:20px; }
+@media (max-width:700px) { header, main { padding-left:16px; padding-right:16px; } .images img { height:150px; } }
+</style>
+</head>
+<body>
+<header><h1 id="titre"></h1><p id="sous"></p></header>
+<main id="app"></main>
+<footer>Traité avec Siril · Atelier astro</footer>
+<script>
+const D = {"titre": "Mes astrophotos", "cibles": [{"cible": "IC 63", "slug": "ic-63", "type": "nebuleuse", "travaux": [{"lieu": "Buc", "date": "2026-10-27", "infos": ["ZWO Seestar S50", "intégration 2 h 07", "127 poses"], "images": [{"src": "img/ic-63/colorise.jpg", "vignette": "img/ic-63/colorise_vignette.jpg", "titre": "Colorisée"}, {"src": "img/ic-63/naturel.jpg", "vignette": "img/ic-63/naturel_vignette.jpg", "titre": "Naturelle"}, {"src": "img/ic-63/stack_brut.jpg", "vignette": "img/ic-63/stack_brut_vignette.jpg", "titre": "Stack brut"}], "fiche": "fiches/ic-63.pdf"}], "couverture": "img/ic-63/colorise_vignette.jpg"}, {"cible": "NGC 7380", "slug": "ngc-7380", "type": "nebuleuse", "travaux": [{"lieu": "Buc", "date": "2026-09-25", "infos": ["ZWO Seestar S50", "intégration 3 h 23", "203 poses"], "images": [{"src": "img/ngc-7380/colorise.jpg", "vignette": "img/ngc-7380/colorise_vignette.jpg", "titre": "Colorisée"}, {"src": "img/ngc-7380/naturel.jpg", "vignette": "img/ngc-7380/naturel_vignette.jpg", "titre": "Naturelle"}, {"src": "img/ngc-7380/stack_brut.jpg", "vignette": "img/ngc-7380/stack_brut_vignette.jpg", "titre": "Stack brut"}], "fiche": "fiches/ngc-7380.pdf"}], "couverture": "img/ngc-7380/colorise_vignette.jpg"}, {"cible": "IC 1396A", "slug": "ic-1396a", "type": "nebuleuse", "travaux": [{"lieu": "Buc", "date": "2026-08-30", "infos": ["ZWO Seestar S30", "intégration 6 h 40", "801 poses"], "images": [{"src": "img/ic-1396a/colorise.jpg", "vignette": "img/ic-1396a/colorise_vignette.jpg", "titre": "Colorisée"}, {"src": "img/ic-1396a/naturel.jpg", "vignette": "img/ic-1396a/naturel_vignette.jpg", "titre": "Naturelle"}, {"src": "img/ic-1396a/stack_brut.jpg", "vignette": "img/ic-1396a/stack_brut_vignette.jpg", "titre": "Stack brut"}], "fiche": "fiches/ic-1396a.pdf"}], "couverture": "img/ic-1396a/colorise_vignette.jpg"}, {"cible": "IC 410", "slug": "ic-410", "type": "nebuleuse", "travaux": [{"lieu": "Buc", "date": "2026-09-25", "infos": ["ZWO Seestar S50", "intégration 2 h 27", "147 poses"], "images": [{"src": "img/ic-410/colorise.jpg", "vignette": "img/ic-410/colorise_vignette.jpg", "titre": "Colorisée"}, {"src": "img/ic-410/naturel.jpg", "vignette": "img/ic-410/naturel_vignette.jpg", "titre": "Naturelle"}, {"src": "img/ic-410/stack_brut.jpg", "vignette": "img/ic-410/stack_brut_vignette.jpg", "titre": "Stack brut"}], "fiche": "fiches/ic-410.pdf"}], "couverture": "img/ic-410/colorise_vignette.jpg"}, {"cible": "M33", "slug": "m33", "type": "nebuleuse", "travaux": [{"lieu": "Paris", "date": "2026-10-01", "infos": ["ZWO Seestar S50", "intégration 5 h 26", "326 poses"], "images": [{"src": "img/m33/colorise.jpg", "vignette": "img/m33/colorise_vignette.jpg", "titre": "Colorisée"}, {"src": "img/m33/naturel.jpg", "vignette": "img/m33/naturel_vignette.jpg", "titre": "Naturelle"}, {"src": "img/m33/stack_brut.jpg", "vignette": "img/m33/stack_brut_vignette.jpg", "titre": "Stack brut"}], "fiche": "fiches/m33.pdf"}], "couverture": "img/m33/colorise_vignette.jpg"}, {"cible": "NGC 281", "slug": "ngc-281", "type": "nebuleuse", "travaux": [{"lieu": "Buc", "date": "2026-10-29 au 2026-10-31", "infos": ["ZWO Seestar S50", "intégration 14 h 50"], "images": [{"src": "img/ngc-281/colorise.jpg", "vignette": "img/ngc-281/colorise_vignette.jpg", "titre": "Colorisée"}, {"src": "img/ngc-281/naturel.jpg", "vignette": "img/ngc-281/naturel_vignette.jpg", "titre": "Naturelle"}, {"src": "img/ngc-281/stack_brut.jpg", "vignette": "img/ngc-281/stack_brut_vignette.jpg", "titre": "Stack brut"}], "fiche": "fiches/ngc-281.pdf"}], "couverture": "img/ngc-281/colorise_vignette.jpg"}, {"cible": "Sh2-132", "slug": "sh2-132", "type": "nebuleuse", "travaux": [{"lieu": "Buc", "date": "2026-10-05 au 2026-10-17", "infos": ["ZWO Seestar S50", "intégration 8 h 02"], "images": [{"src": "img/sh2-132/colorise.jpg", "vignette": "img/sh2-132/colorise_vignette.jpg", "titre": "Colorisée"}, {"src": "img/sh2-132/naturel.jpg", "vignette": "img/sh2-132/naturel_vignette.jpg", "titre": "Naturelle"}, {"src": "img/sh2-132/stack_brut.jpg", "vignette": "img/sh2-132/stack_brut_vignette.jpg", "titre": "Stack brut"}], "fiche": "fiches/sh2-132.pdf"}], "couverture": "img/sh2-132/colorise_vignette.jpg"}, {"cible": "NGC 6960", "slug": "ngc-6960", "type": "nebuleuse", "travaux": [{"lieu": "Buc", "date": "2026-09-16 au 2026-09-21", "infos": ["ZWO Seestar S50", "intégration 3 h 25", "205 poses"], "images": [{"src": "img/ngc-6960/colorise.jpg", "vignette": "img/ngc-6960/colorise_vignette.jpg", "titre": "Colorisée"}, {"src": "img/ngc-6960/naturel.jpg", "vignette": "img/ngc-6960/naturel_vignette.jpg", "titre": "Naturelle"}, {"src": "img/ngc-6960/stack_brut.jpg", "vignette": "img/ngc-6960/stack_brut_vignette.jpg", "titre": "Stack brut"}], "fiche": null}], "couverture": "img/ngc-6960/colorise_vignette.jpg"}, {"cible": "M 45", "slug": "m-45", "type": "amas", "travaux": [{"lieu": "Buc", "date": "2026-10-04", "infos": ["96 poses"], "images": [{"src": "img/m-45/colorise.jpg", "vignette": "img/m-45/colorise_vignette.jpg", "titre": "Colorisée"}, {"src": "img/m-45/naturel.jpg", "vignette": "img/m-45/naturel_vignette.jpg", "titre": "Naturelle"}, {"src": "img/m-45/stack_brut.jpg", "vignette": "img/m-45/stack_brut_vignette.jpg", "titre": "Stack brut"}], "fiche": "fiches/m-45.pdf"}], "couverture": "img/m-45/colorise_vignette.jpg"}, {"cible": "M31", "slug": "m31", "type": "galaxie", "travaux": [{"lieu": "Buc", "date": "2026-09-08", "infos": ["2149 poses"], "images": [{"src": "img/m31/naturel.jpg", "vignette": "img/m31/naturel_vignette.jpg", "titre": "Naturelle"}], "fiche": "fiches/m31.pdf"}], "couverture": "img/m31/naturel_vignette.jpg"}], "maj": "03/11/2026"};
+const T = { nebuleuse: "nébuleuse", galaxie: "galaxie", amas: "amas" };
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+document.getElementById("titre").textContent = D.titre;
+document.title = D.titre;
+document.getElementById("sous").textContent = `${D.cibles.length} cible(s) · mis à jour le ${D.maj}`;
+function grille() {
+  return `<div class="grille">${D.cibles.map(c => { const t = c.travaux[0];
+    return `<a class="carte" href="#${esc(c.slug)}"><div class="img">${c.couverture ? `<img loading="lazy" src="${esc(c.couverture)}" alt="${esc(c.cible)}">` : ""}</div>
+      <div class="leg"><b>${esc(c.cible)}</b><span class="muted">${[T[c.type] || c.type, t.lieu, t.date].filter(Boolean).map(esc).join(" · ")}</span></div></a>`; }).join("")}</div>`;
+}
+function page(c) {
+  return `<a class="retour" href="#">← Toutes les cibles</a><h2>${esc(c.cible)}</h2>` + c.travaux.map((t, k) =>
+    `<section class="travail"><h3>${[t.lieu, t.date].filter(Boolean).map(esc).join(" — ")}</h3>
+     <div class="muted">${t.infos.map(esc).join(" · ")}</div>
+     <div class="images">${t.images.map((im, i) => `<figure data-t="${k}" data-i="${i}"><img loading="lazy" src="${esc(im.vignette)}" alt="${esc(im.titre)}"><figcaption>${esc(im.titre)}</figcaption></figure>`).join("")}</div>
+     ${t.fiche ? `<a class="fiche" href="${esc(t.fiche)}" target="_blank">Fiche PDF</a>` : ""}</section>`).join("");
+}
+let lb = null;
+function ouvrir(c, k, i) {
+  const ims = c.travaux[k].images;
+  lb = document.createElement("div"); lb.className = "lb";
+  lb.innerHTML = `<div class="bar"><span></span><button data-a="-1">←</button><button data-a="1">→</button><button data-a="x">Fermer ✕</button></div><div class="corps"><img alt=""></div>`;
+  const voir = (j) => { i = (j + ims.length) % ims.length; lb.querySelector("img").src = ims[i].src;
+    lb.querySelector("span").textContent = `${c.cible} — ${ims[i].titre} (${i + 1}/${ims.length})`; };
+  lb.addEventListener("click", (e) => { const a = e.target.dataset.a; if (a === "x" || e.target.classList.contains("corps")) fermer(); else if (a) voir(i + +a); });
+  lb._k = (e) => { if (e.key === "Escape") fermer(); else if (e.key === "ArrowRight") voir(i + 1); else if (e.key === "ArrowLeft") voir(i - 1); };
+  document.addEventListener("keydown", lb._k);
+  document.body.append(lb); voir(i);
+}
+function fermer() { if (!lb) return; document.removeEventListener("keydown", lb._k); lb.remove(); lb = null; }
+function rendre() {
+  fermer();
+  const app = document.getElementById("app");
+  const c = D.cibles.find(x => x.slug === decodeURIComponent(location.hash.slice(1)));
+  app.innerHTML = c ? page(c) : grille();
+  if (c) app.querySelectorAll("figure").forEach(f => f.onclick = () => ouvrir(c, +f.dataset.t, +f.dataset.i));
+  window.scrollTo(0, 0);
+}
+window.addEventListener("hashchange", rendre);
+rendre();
+</script>
+</body>
+</html>
